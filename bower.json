@@ -1,0 +1,18 @@
+{
+  "name": "reactemitter",
+  "description": "Boilerplate for project using ReactJS and RXJS Event Emitter functionality for front-end observable pattern set up",
+  "main": "gulpfile.js",
+  "authors": [
+    "Daniel Essien"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
