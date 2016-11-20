@@ -1,5 +1,5 @@
 var React = require('react');
-var emitter = require('../helpers/emitter');
+var emitter = require('../helpers/Emitter');
 
 export default class App extends React.Component {
     constructor(props) {

@@ -7,9 +7,6 @@ import {SearchStore} from './SearchStore';
 export default class Search extends React.Component {
     constructor(props) {
         super(props);
-        this.props.emitter.listen("test", function(data) {
-            console.log(data);
-        });
         this.state = {
             inputValue: ""
         };

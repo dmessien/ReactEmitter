@@ -7,9 +7,8 @@ export default class Comments extends React.Component {
     render() {
         return (
             <section id="search">
-                <h1>Search</h1>
+                <h1>Comments</h1>
             </section>
         )
     }
 }
-return Comments;

@@ -1,7 +1,10 @@
+var emitter = require('./Emitter');
+
 export class Dispatcher {
     constructor(component) {
+        this.subscriptions = {};
         this.component = component;
-        this.emitter = component.props.emitter;
+        this.emitter = emitter;
         this.emit = this.emit.bind(this);
         this.dispose = this.dispose.bind(this);
         this.setState = this.setState.bind(this);
@@ -16,7 +19,16 @@ export class Dispatcher {
     setState(state) {
         this.component.setState(state);
     }
-    dispose() {
+    subscribe(action, callback) {
+        this.subscriptions[action] = this.emitter.listen(action, callback);
+    }
+    pollApi(endpoint, callback) {
+        //Return observable
+    }
+    dispose(subscription) {
+        this.subscriptions[subscription].dispose();
+    }
+    disposeAll() {
         if(this.subscriptions.length) {
             for (subcription in this.subcriptions) {
                 this.subcriptions[subcription].dispose();
