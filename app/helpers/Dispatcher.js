@@ -2,6 +2,7 @@ var emitter = require('./Emitter');
 
 export class Dispatcher {
     constructor(component) {
+        let {state, componentWillUnmount} = component;
         this.subscriptions = {};
         this.component = component;
         this.emitter = emitter;
@@ -9,6 +10,7 @@ export class Dispatcher {
         this.dispose = this.dispose.bind(this);
         this.setState = this.setState.bind(this);
         this.getState = this.getState.bind(this);
+        this.disposeAll.bind(componentWillUnmount);
     }
     emit(action, data) {
         this.emitter.emit(action, data);
