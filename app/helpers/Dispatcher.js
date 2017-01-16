@@ -1,4 +1,6 @@
 var emitter = require('./Emitter');
+var Rx = require('rxjs');
+import $ from 'jquery';
 
 export class Dispatcher {
     constructor(component) {
@@ -24,8 +26,14 @@ export class Dispatcher {
     subscribe(action, callback) {
         this.subscriptions[action] = this.emitter.listen(action, callback);
     }
-    pollApi(endpoint, callback) {
-        //Return observable
+    pollApi(endpoint, timeout, callback, error) {
+        var state$ = Rx.Observable.timer(timeout)
+            .switchMap(() => Rx.Observable.fromPromise($.get(endpoint)))
+            .repeat() // Repeat when we get a response
+            .retry() // Retry if there is an error
+            .share(); // Make multiple subscribers share stream
+
+        state$.subscribe(callback);
     }
     dispose(subscription) {
         this.subscriptions[subscription].dispose();

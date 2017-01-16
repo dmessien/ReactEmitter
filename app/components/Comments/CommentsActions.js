@@ -1,3 +1,5 @@
 module.exports = {
-    NEW_POSTS_WAITING: "newPostsWaiting"
+    NEW_COMMENTS_WAITING: "newPostsWaiting",
+    COMMENT_INPUT_CHANGE: "commentInputChange",
+    SHOW_NEW_COMMENTS: "showNewComments"
 };

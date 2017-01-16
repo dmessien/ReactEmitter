@@ -1,5 +1,5 @@
 import {Dispatcher} from '../../helpers/Dispatcher';
-var Actions = require('./CommentsActions');
+import Actions from './CommentsActions';
 
 export class CommentsStore extends Dispatcher {
     constructor(Comments){
@@ -7,11 +7,30 @@ export class CommentsStore extends Dispatcher {
 
         let {componentWillUnmount} = Comments;
 
-        this.subscribe(Actions.NEW_POSTS_WAITING, function(newPosts) {
-            Comments.setState({
-                newPostsCount: newPosts.length,
-                posts: newPosts
-            });
+        this.pollApi("/api/comments", 1500, function(comments) {
+            Comments.store.emit(Actions.NEW_COMMENTS_WAITING, comments)
+        });
+
+        this.subscribe(Actions.NEW_COMMENTS_WAITING, function(newComments) {
+            var state = Comments.state;
+            state.newCommentsCount = newComments.length - Comments.state.comments.length;
+            state.pendingComments = newComments;
+            Comments.setState(state);
+        });
+
+        this.subscribe(Actions.SHOW_NEW_COMMENTS, function() {
+            var state = Comments.state;
+            state.comments = Comments.state.pendingComments.reverse();
+            state.newCommentsCount = 0;
+            state.pendingComments = [];
+            Comments.setState(state);
+        });
+
+        this.subscribe(Actions.COMMENT_INPUT_CHANGE, function(event) {
+            var value = event.target.value;
+            var state = Comments.state;
+            state.form.comment = value;
+            Comments.setState(state);
         });
 
         this.disposeAll.bind(componentWillUnmount);
