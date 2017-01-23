@@ -1,7 +1,7 @@
-import {Dispatcher} from '../../helpers/Dispatcher';
+import {Dispatcher} from 'rxjs-cumulus';
 var Actions = require('./SearchActions.js');
 
-export class SearchStore extends Dispatcher {
+export class SearchDispatcher extends Dispatcher {
     constructor(Search){
         super(Search);
 

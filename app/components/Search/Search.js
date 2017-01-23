@@ -1,8 +1,7 @@
 var React = require('react');
-var Broadcaster = require('../../helpers/Broadcaster');
 var Actions = require('./SearchActions.js');
 import {Filters} from '../../helpers/Filters';
-import {SearchStore} from './SearchStore';
+import {SearchStore} from './SearchDispatcher';
 
 export default class Search extends React.Component {
     constructor(props) {

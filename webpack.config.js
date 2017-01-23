@@ -6,6 +6,8 @@ var COMPONENTS_DIR = path.resolve(__dirname, 'app/components');
 
 var DIST = path.resolve(__dirname, 'dist');
 
+var CUMULUS = path.resolve(__dirname, '../Cumulus/src');
+
 var config = {
     entry: {
         main: APP_DIR + '/index.js'
